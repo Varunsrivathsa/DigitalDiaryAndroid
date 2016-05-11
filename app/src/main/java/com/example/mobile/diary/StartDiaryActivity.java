@@ -1,6 +1,8 @@
 package com.example.mobile.diary;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -16,6 +18,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,8 +60,10 @@ public class StartDiaryActivity extends AppCompatActivity{
     String userId,songName,titleDiary;
     int position;
     Uri u;
+    Bitmap fromAudio;
     File songPath;
-    TextView Tv;
+    TextView Tv,title,date;
+    EditText editText;
     private static final int REQUEST_CAMERA = 112;
     private static final int ACTIVITY_START_CAMERA_APP = 0;
     private ImageView picCap;
@@ -66,27 +71,24 @@ public class StartDiaryActivity extends AppCompatActivity{
     private static final int PICK_FROM_CAM = 1;
     private static final int PICK_FROM_FILE = 2;
     private Uri imageUri;
+
+    saveMyData smd = new saveMyData();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_diary);
+
+        Log.i("Oncreate", "InOncreate");
+
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendJson();
-            }
-        });
-
-
-        TextView title = (TextView) findViewById(R.id.title);
-        TextView date = (TextView) findViewById(R.id.date);
+        title = (TextView) findViewById(R.id.title);
+        date = (TextView) findViewById(R.id.date);
         picCap = (ImageView) findViewById(R.id.capturePic);
-
-
+        editText = (EditText) findViewById(R.id.diary);
 
         Intent intent = getIntent();
 
@@ -95,43 +97,85 @@ public class StartDiaryActivity extends AppCompatActivity{
             title.setText(title_message);
             title.setTextSize(25);
 
+            smd.titleMsg = title_message;
+
             Log.i("Ide title", title_message);
 
 
             date_message = intent.getStringExtra(MainActivity.DATE);
-            Log.d("DATE DATE DATE",date_message);
+            Log.d("DATE DATE DATE", date_message);
             date.setText(date_message);
             date.setTextSize(15);
 
+            smd.date = date_message;
+
             userId = intent.getStringExtra(MainActivity.USER_ID);
 
-            ImageView attachfile = (ImageView) findViewById(R.id.attachfile);
-            attachfile.setOnClickListener(new OnClickListener() {
-                int button01pos = 0;
-                TableLayout attach_fileTable;
-
-                @Override
-                public void onClick(View v) {
-                    if (button01pos == 0) {
-                        attach_fileTable = (TableLayout) findViewById(R.id.attach_file);
-                        attach_fileTable.setVisibility(View.VISIBLE);
-                        button01pos = 1;
-                    } else if (button01pos == 1) {
-                        attach_fileTable.setVisibility(View.INVISIBLE);
-                        button01pos = 0;
-                    }
-                }
-
-            });
         }
         else {
             if(intent.getExtras() != null) {
+
+//                title.setText(newTit);
+//                title.setTextSize(25);
+//
+//                date.setText(newDate);
+//                date.setTextSize(25);
 
                 Log.i("Music", "Bantu");
 
                 Bundle b = intent.getExtras();
                 mySongs = (ArrayList) b.getParcelableArrayList("songlist");
                 position = b.getInt("pos", 0);
+                smd = b.getParcelable("takeBack");
+
+                if(smd.titleMsg != null)
+                Log.i("titnew", smd.titleMsg);
+                else
+                Log.i("titNew", "dabba");
+
+                title.setText(smd.titleMsg);
+                title.setTextSize(25);
+
+                date.setText(smd.date);
+                date.setTextSize(15);
+
+                //Log.i("Illadru print aagu guru", smd.data);
+                editText.setText(smd.data);
+
+//                if(smd.imgUri != null) {
+//                    try {
+//                        Log.i("Shata", String.valueOf(smd.imgUri));
+//                        fromAudio = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                else{
+//                    Log.i("ShataBit", String.valueOf(smd.bitmap));
+//                    fromAudio = smd.bitmap;
+//                }
+
+                StringBuilder sb = new StringBuilder();
+                String s = String.valueOf(Environment.getExternalStorageDirectory());
+                sb.append(s);
+                sb.append(File.separator);
+                sb.append("DigitalDiary");
+                sb.append(File.separator);
+                sb.append(smd.titleMsg);
+                sb.append(".jpg");
+
+                Log.i("File location",sb.toString());
+
+                File imgFile = new  File(sb.toString());
+                if(imgFile.exists()){
+                    Log.i("I am entering","here");
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    //Drawable d = new BitmapDrawable(getResources(), myBitmap);
+                    picCap.setImageBitmap(myBitmap);
+
+                }
+
+                picCap.setImageBitmap(fromAudio);
 
                 u = Uri.parse(mySongs.get(position).toString());
                 songPath = new File(u.getPath());
@@ -149,6 +193,26 @@ public class StartDiaryActivity extends AppCompatActivity{
                 mp.pause();
             }
         }
+
+        ImageView attachfile = (ImageView) findViewById(R.id.attachfile);
+        attachfile.setOnClickListener(new OnClickListener() {
+            int button01pos = 0;
+            TableLayout attach_fileTable;
+
+            @Override
+            public void onClick(View v) {
+                if (button01pos == 0) {
+                    attach_fileTable = (TableLayout) findViewById(R.id.attach_file);
+                    attach_fileTable.setVisibility(View.VISIBLE);
+                    button01pos = 1;
+                } else if (button01pos == 1) {
+                    attach_fileTable.setVisibility(View.INVISIBLE);
+                    button01pos = 0;
+                }
+            }
+
+        });
+
         Tv = (TextView) findViewById(R.id.songName);
         Tv.setOnClickListener(new OnClickListener() {
             @Override
@@ -163,22 +227,6 @@ public class StartDiaryActivity extends AppCompatActivity{
             }
         });
 
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
-        savedInstanceState.putString("Title", title_message);
-        savedInstanceState.putString("Date",date_message);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        title_message = savedInstanceState.getString("Title");
-        date_message = savedInstanceState.getString("Date");
     }
 
     public void goToCamera(View v){
@@ -214,6 +262,12 @@ public class StartDiaryActivity extends AppCompatActivity{
         Intent intent = new Intent(StartDiaryActivity.this,Audio_pick.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         //intent.setClassName(this,"com.example.mobile.diary.Audio_pick");
+        editText = (EditText) findViewById(R.id.diary);
+        String text = editText.getText().toString();
+        smd.data = text;
+        Log.i("Illadru print aagu guru", String.valueOf(smd.bitmap));
+        Log.i("Illadru print aagu guru", text);
+        intent.putExtra("dataStore",smd);
         startActivity(intent);
     }
 
@@ -221,12 +275,26 @@ public class StartDiaryActivity extends AppCompatActivity{
 
     }
 
-    @Override
-    public void onBackPressed() {
-
-            super.onBackPressed();
-
-    }
+//    @Override
+//    public void onBackPressed() {
+//        new AlertDialog.Builder(this)
+//                .setTitle("Done")
+//                .setMessage("Did you save your entry before exiting?")
+//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//                        intent.putExtra("Done",true);
+//                        startActivity(intent);
+//                    }
+//                })
+//                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // do nothing
+//                    }
+//                })
+//                .setIcon(android.R.drawable.ic_dialog_alert)
+//                .show();
+//    }
 
 
     public void sendJson(){
@@ -278,11 +346,14 @@ public class StartDiaryActivity extends AppCompatActivity{
 
                 Toast.makeText(this, "Picture captured Successfully", Toast.LENGTH_LONG).show();
 
+                //picCap.setImageURI(imageUri);
                 Bitmap photoCap = BitmapFactory.decodeFile(imgFileLoc);
+                smd.bitmap = photoCap;
                 picCap.setImageBitmap(photoCap);
             } else {
                 Bitmap bitmap1 = null;
                 imageUri = data.getData();
+                smd.imgUri = imageUri;
                 path = getPath(imageUri);
                 picCap.setImageURI(imageUri);
                 try {
@@ -414,6 +485,7 @@ public class StartDiaryActivity extends AppCompatActivity{
         }
 
     }
+
 
 
     private class SendDiaryDetailsToServerTask extends AsyncTask<String, Void, String> {

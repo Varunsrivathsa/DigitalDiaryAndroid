@@ -86,9 +86,16 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
-        userId = intent.getStringExtra(LoginActivity.USER_ID);
-        personName = intent.getStringExtra(LoginActivity.NAME);
-        photoUri = intent.getStringExtra(LoginActivity.PHOTO_URL);
+
+        //if(intent.getStringExtra(LoginActivity.USER_ID) != null) {
+            userId = intent.getStringExtra(LoginActivity.USER_ID);
+            personName = intent.getStringExtra(LoginActivity.NAME);
+            photoUri = intent.getStringExtra(LoginActivity.PHOTO_URL);
+        //}
+//        else if(intent.getBooleanExtra("Done", true)){
+//            Intent intent1 = new Intent(MainActivity.this,MainActivity.class);
+//            startActivity(intent1);
+//        }
 
         profileImg = Uri.parse(photoUri);
 
