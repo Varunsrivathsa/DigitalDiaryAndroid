@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1002920462638",
+    "project_id": "digitaldiary-76dfb"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002920462638:android:31cbd8cffcf70ef4",
+        "android_client_info": {
+          "package_name": "com.example.mobile.diary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002920462638-46sa5gpmkt9gn5bt6iq14tu6ag8raian.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobile.diary",
+            "certificate_hash": "C5703DAEC0E8DD79A4823C0126CB574AB685DCEE"
+          }
+        },
+        {
+          "client_id": "1002920462638-i05firisb112deilei8dj4vc4e011kr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2PwgfLa1Iz_bX9adlh04JE4-fGdM8I2g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

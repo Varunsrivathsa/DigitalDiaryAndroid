@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="2dp"
+    android:paddingTop="2dp"
+    tools:context="com.example.mobile.diary.StartDiaryActivity"
+    tools:showIn="@layout/activity_start_diary">
+
+
+    <ScrollView
+        android:id="@+id/diaryscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@id/fab">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/diary"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:hint="Start Writing"
+                android:textColorHint="#000000"
+                android:inputType="textMultiLine|textShortMessage"
+                />
+
+            <ImageView
+                android:layout_width="373dp"
+                android:layout_height="250dp"
+                android:layout_below="@+id/diary"
+                android:id="@+id/capturePic"
+                android:layout_alignParentEnd="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/songName"
+                android:text="Song for the day"
+                android:textSize="22dp"
+                android:textColor="#000000"
+                android:layout_below="@+id/capturePic"
+                android:clickable="true" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+    <TableLayout
+        android:layout_width="230dp"
+        android:layout_height="150dp"
+        android:layout_gravity="right"
+        android:id="@+id/attach_file"
+        android:background="?attr/colorPrimary"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
+        android:visibility="invisible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="false"
+        android:layout_marginTop="55dp">
+
+        <TableRow android:layout_marginTop="5dp">
+
+            <ImageView
+                android:layout_column="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:id="@+id/camera"
+                android:src="@drawable/ic_camera"
+                android:clickable="true"
+                android:onClick="goToCamera" />
+
+            <ImageView
+                android:layout_column="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:id="@+id/gallery"
+                android:src="@drawable/ic_gallery"
+                android:clickable="true"
+                android:onClick="goToGallery" />
+        </TableRow>
+
+        <TableRow
+            android:padding="5dip"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_column="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:text="Camera"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginLeft="20dp" />
+
+
+            <TextView
+                android:layout_column="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:text="Gallery"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:layout_marginLeft="20dp" />
+
+        </TableRow>
+
+
+        <TableRow>
+            <ImageView
+                android:layout_column="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:id="@+id/audio"
+                android:src="@drawable/ic_audio"
+                android:clickable="true"
+                android:onClick="goToAudio" />
+
+
+
+            <ImageView
+                android:layout_column="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:id="@+id/location"
+                android:src="@drawable/ic_add_location"
+                android:clickable="true"
+                android:onClick="goToLocation" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_column="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:text="Audio"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginLeft="25dp" />
+
+            <TextView
+                android:layout_column="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:text="Location"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginLeft="20dp" />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+
+</RelativeLayout>
