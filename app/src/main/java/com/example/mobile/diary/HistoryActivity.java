@@ -75,7 +75,7 @@ public class HistoryActivity extends AppCompatActivity implements onDownload {
             arra = (JSONArray) jData.get("diaries");
             len = arra.length();
 
-            if (len == 0) {
+            if (arra == null || len == 0) {
                 TextView txtvw = (TextView) findViewById(R.id.nohistory);
                 txtvw.setVisibility(View.VISIBLE);
 

@@ -2,6 +2,7 @@ package com.example.mobile.diary;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -27,6 +28,15 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveFolder;
+import com.google.android.gms.drive.MetadataChangeSet;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -46,7 +56,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class StartDiaryActivity extends AppCompatActivity{
+public class StartDiaryActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener{
 
     private static final String TAG = "Sending Data to Server";
 
@@ -64,10 +75,15 @@ public class StartDiaryActivity extends AppCompatActivity{
     Button btPlayDairy;
     private static final int PICK_FROM_CAM = 1;
     private static final int PICK_FROM_FILE = 2;
+    private static final int REQUEST_CODE_CREATOR = 2;
+    private static final int REQUEST_CODE_RESOLUTION = 3;
+    private static final int PICK_FROM_GALLERY = 4;
     private static final int REQUEST_CAMERA = 112;
     private String imgFileLoc = "";
     private ImageView picCap;
     private Uri imageUri;
+    private GoogleApiClient mGoogleApiClient;
+    private Bitmap mBitmapToSave;
     saveMyData smd = new saveMyData();
 
     @Override
@@ -91,23 +107,18 @@ public class StartDiaryActivity extends AppCompatActivity{
 
             smd.titleMsg = title_message;
 
-            Log.i("Ide title", title_message);
 
             date_message = intent.getStringExtra(MainActivity.DATE);
-            Log.d("DATE DATE DATE", date_message);
+
             date.setText(date_message);
             date.setTextSize(15);
-
             smd.date = date_message;
 
             userId = intent.getStringExtra(MainActivity.USER_ID);
-            Log.i("TaleNovu",userId);
             smd.UserId = userId;
         }
         else {
             if(intent.getExtras() != null) {
-
-                Log.i("Music", "Bantu");
 
                 Bundle b = intent.getExtras();
                 mySongs = (ArrayList) b.getParcelableArrayList("songlist");
@@ -145,7 +156,7 @@ public class StartDiaryActivity extends AppCompatActivity{
 
                 //Log.i("Nodkolappa",targetFile.toString());
 
-                        Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG).show();
                 File targetDirector = new File(targetPath.toString());
 
                 File[] files = targetDirector.listFiles();
@@ -163,7 +174,6 @@ public class StartDiaryActivity extends AppCompatActivity{
                 songPath = new File(u.getPath());
                 songName = songPath.getAbsolutePath();
 
-                Log.i("Ide nan song", songName);
 
                 try {
                     addSongtoDirectory(songName);
@@ -182,6 +192,7 @@ public class StartDiaryActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 sendJson();
+                Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -218,6 +229,66 @@ public class StartDiaryActivity extends AppCompatActivity{
         });
     }
 
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.i(TAG, "GoogleApiClient connection suspended");
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Log.i(TAG, "API client connected.");
+//        new createFolder().execute();
+        if(mBitmapToSave != null) {
+            //Toast.makeText(this,"Save to drive called",Toast.LENGTH_LONG).show();
+            saveFileToDrive();
+        }
+        else
+            Log.i("Just a statement","yes");
+            //Toast.makeText(this,"Bit map is null",Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Toast.makeText(this,"onresume called",Toast.LENGTH_LONG).show();
+        if (mGoogleApiClient == null) {
+            // Create the API client and bind it to an instance variable.
+            // We use this instance as the callback for connection and connection
+            // failures.
+            // Since no account name is passed, the user is prompted to choose.
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addApi(Drive.API)
+                    .addScope(Drive.SCOPE_FILE)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
+        }
+        // Connect the client. Once connected, the camera is launched.
+        mGoogleApiClient.connect();
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // Called whenever the API client fails to connect.
+        Log.i(TAG, "GoogleApiClient connection failed: " + result.toString());
+        if (!result.hasResolution()) {
+            // show the localized error dialog.
+            GoogleApiAvailability.getInstance().getErrorDialog(this, result.getErrorCode(), 0).show();
+            return;
+        }
+        // The failure has a resolution. Resolve it.
+        // Called typically when the app is not yet authorized, and an
+        // authorization
+        // dialog is displayed to the user.
+        try {
+            result.startResolutionForResult(this, REQUEST_CODE_RESOLUTION);
+        } catch (IntentSender.SendIntentException e) {
+            Log.e(TAG, "Exception while starting resolution activity", e);
+        }
+    }
+
     public void goToCamera(View v){
         boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
@@ -243,7 +314,9 @@ public class StartDiaryActivity extends AppCompatActivity{
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Complete Action Using"), PICK_FROM_FILE);
+        startActivityForResult(Intent.createChooser(intent, "Complete Action Using"), PICK_FROM_GALLERY);
+        //saveFileToDrive();
+        return;
     }
 
     public void goToAudio(View v){
@@ -251,8 +324,6 @@ public class StartDiaryActivity extends AppCompatActivity{
         editText = (EditText) findViewById(R.id.diary);
         String text = editText.getText().toString();
         smd.data = text;
-        //Log.i("Illadru print aagu guru", String.valueOf(smd.bitmap));
-        Log.i("Illadru print aagu guru", smd.UserId);
         intent.putExtra("dataStore", smd);
         startActivity(intent);
     }
@@ -267,6 +338,14 @@ public class StartDiaryActivity extends AppCompatActivity{
 
             super.onBackPressed();
 
+    }
+
+    @Override
+    protected void onPause() {
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.disconnect();
+        }
+        super.onPause();
     }
 
 
@@ -302,7 +381,6 @@ public class StartDiaryActivity extends AppCompatActivity{
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         Bitmap bitmap = null;
         String path = "";
 
@@ -316,25 +394,62 @@ public class StartDiaryActivity extends AppCompatActivity{
                             REQUEST_CAMERA);
                 }
 
-                Toast.makeText(this, "Picture captured Successfully", Toast.LENGTH_LONG).show();
+                String RootDir = Environment.getExternalStorageDirectory() + File.separator + "DigitalDiary"+File.separator;
+                ///File RootFile = new File(RootDir);
 
-                //picCap.setImageURI(imageUri);
-                Bitmap photoCap = BitmapFactory.decodeFile(imgFileLoc);
-                //smd.bitmap = photoCap;
-                picCap.setImageBitmap(photoCap);
-            } else {
+                //RootFile.mkdir();
+                StringBuilder sb = new StringBuilder();
+                sb.append(RootDir);
+                sb.append(title_message);
+                sb.append(".jpg");
+                Log.i("Path of imag : ", sb.toString());
+                File imageFile = new File(sb.toString());
+                mBitmapToSave = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
+
+                int nh = (int) ( mBitmapToSave.getHeight() * (1024.0 / mBitmapToSave.getWidth()) );
+                Bitmap scaled = Bitmap.createScaledBitmap(mBitmapToSave, 1024, nh, true);
+                picCap.setImageBitmap(scaled);
+
+
+
+                //picCap.setImageBitmap(mBitmapToSave);
+
+                //File imgFile = new File(sb.toString());
+
+                /*if(imgFile.exists()){
+
+                    mBitmapToSave = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+                    //ImageView myImage = (ImageView) findViewById(R.id.imageviewTest);
+
+                    picCap.setImageBitmap(mBitmapToSave);
+
+                }*/
+                //Toast.makeText(this, "Picture captured Successfully", Toast.LENGTH_LONG).show();
+
+            }
+            else if(requestCode == REQUEST_CODE_CREATOR){
+                // Called after a file is saved to Drive.
+                //if (resultCode == RESULT_OK) {
+                Log.i(TAG, "Image successfully saved.");
+                mBitmapToSave = null;
+                // Just start the camera again for another photo.
+                //startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),REQUEST_CODE_CAPTURE_IMAGE);
+                //}
+            }
+            else if(requestCode == PICK_FROM_GALLERY){
                 Bitmap bitmap1 = null;
                 imageUri = data.getData();
-                smd.imgUri = imageUri;
                 path = getPath(imageUri);
                 picCap.setImageURI(imageUri);
                 try {
-                    bitmap1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    mBitmapToSave = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 try {
-                    createImageFileGallery(bitmap1);
+                    createImageFileGallery(mBitmapToSave);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -343,6 +458,14 @@ public class StartDiaryActivity extends AppCompatActivity{
                     if (path != null)
                         Log.i("path of file..:", path);
                 }
+
+                /*imageUri = data.getData();
+                try {
+                    mBitmapToSave = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                picCap.setImageURI(imageUri);*/
             }
         }
     }
@@ -400,7 +523,6 @@ public class StartDiaryActivity extends AppCompatActivity{
 
         RootFile.mkdir();
         File image = new File(RootFile, sb.toString());
-        Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         imageData.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
 
@@ -433,6 +555,74 @@ public class StartDiaryActivity extends AppCompatActivity{
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    private void saveFileToDrive() {
+        // Start by creating a new contents, and setting a callback.
+        Log.i(TAG, "Creating new contents.");
+        final Bitmap image = mBitmapToSave;
+        Drive.DriveApi.newDriveContents(mGoogleApiClient)
+                .setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
+
+                    @Override
+                    public void onResult(DriveApi.DriveContentsResult result) {
+                        // If the operation was not successful, we cannot do anything
+                        // and must
+                        // fail.
+                        if (!result.getStatus().isSuccess()) {
+                            Log.i(TAG, "Failed to create new contents.");
+                            return;
+                        }
+                        // Otherwise, we can write our data to the new contents.
+                        Log.i(TAG, "New contents created.");
+                        // Get an output stream for the contents.
+                        OutputStream outputStream = result.getDriveContents().getOutputStream();
+                        // Write the bitmap data from it.
+                        ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
+                        image.compress(Bitmap.CompressFormat.PNG, 100, bitmapStream);
+                        try {
+                            outputStream.write(bitmapStream.toByteArray());
+                        } catch (IOException e1) {
+                            Log.i(TAG, "Unable to write file contents.");
+                        }
+                        // Create the initial metadata - MIME type and title.
+                        // Note that the user will be able to change the title later.
+                        String s = title_message + ".png";
+                        MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
+                                .setMimeType("image/jpeg").setTitle(s).build();
+                        // Create an intent for the file chooser, and start it.
+                        IntentSender intentSender = Drive.DriveApi
+                                .newCreateFileActivityBuilder()
+                                .setInitialMetadata(metadataChangeSet)
+                                .setInitialDriveContents(result.getDriveContents())
+                                .build(mGoogleApiClient);
+                        try {
+                            startIntentSenderForResult(intentSender, REQUEST_CODE_CREATOR, null, 0, 0, 0);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.i(TAG, "Failed to launch file chooser.");
+                        }
+                    }
+                });
+    }
+
+    public GoogleApiClient getGoogleApiClient() {
+        return mGoogleApiClient;
+    }
+
+    final ResultCallback<DriveFolder.DriveFolderResult> callback = new ResultCallback<DriveFolder.DriveFolderResult>() {
+        @Override
+        public void onResult(DriveFolder.DriveFolderResult result) {
+            if (!result.getStatus().isSuccess()) {
+                showMessage("Error while trying to create the folder");
+                return;
+            }
+            //showMessage("Created a folder: " + result.getDriveFolder().getDriveId());
+        }
+    };
+
+
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     public void addSongtoDirectory (String sourcePath) throws FileNotFoundException {

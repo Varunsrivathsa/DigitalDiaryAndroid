@@ -185,6 +185,7 @@ public class display_data extends AppCompatActivity {
         date.setText(dateoftheday);
 
         textView.setText(text);
+        textView.setTextSize(18);
         //headView.setText(dobj.titleOftheday);
 
 
@@ -207,8 +208,6 @@ public class display_data extends AppCompatActivity {
         targetFile.append(titleOfTheDay);
         targetFile.append(".jpg");
 
-
-        Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG).show();
         File targetDirector = new File(targetPath.toString());
 
         File[] files = targetDirector.listFiles();

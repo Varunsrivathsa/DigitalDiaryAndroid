@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity implements
                 userId = acct.getId();
                 personName = acct.getDisplayName();
                 emailId = acct.getEmail();
+                imageurl = acct.getPhotoUrl().toString();
 
                 Log.d("PERSON NAME",personName);
 

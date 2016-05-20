@@ -7,19 +7,25 @@
     android:weightSum="4"
     >
 
+    <ImageView
+        android:id="@+id/google_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/diary1"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp" />
 
-
-        <ImageView
-            android:id="@+id/google_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/googleg_color"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp" />
-
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Digital Diary"
+        android:gravity="center_vertical|center|center_horizontal"
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:textIsSelectable="false"
+        android:textStyle="bold"
+        android:textColor="#000000" />
 
 
         <com.google.android.gms.common.SignInButton

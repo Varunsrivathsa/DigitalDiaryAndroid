@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         Intent intent = getIntent();
         userId = intent.getStringExtra(LoginActivity.USER_ID);
         personName = intent.getStringExtra(LoginActivity.NAME);
+        photoUri = intent.getStringExtra(LoginActivity.PHOTO_URL);
 
 
         Log.d("USER NAME",personName);
@@ -155,12 +156,6 @@ public class MainActivity extends AppCompatActivity
             showDialog();
         } else if (id == R.id.nav_history) {
             onHistoryClick();
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_logout) {
 
 
