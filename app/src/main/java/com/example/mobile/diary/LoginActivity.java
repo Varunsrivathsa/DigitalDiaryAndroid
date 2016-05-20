@@ -108,11 +108,18 @@ public class LoginActivity extends AppCompatActivity implements
                 GoogleSignInAccount acct = result.getSignInAccount();
                 String idToken = acct.getIdToken();
 
+<<<<<<< HEAD
 
                 userId = acct.getId();
                 personName = acct.getDisplayName();
                 emailId = acct.getEmail();
                 imageurl = acct.getPhotoUrl().toString();
+=======
+                imageurl = acct.getPhotoUrl().toString();
+                userId = acct.getId();
+                personName = acct.getDisplayName();
+                emailId = acct.getEmail();
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
                 Log.d("PERSON NAME",personName);
 

@@ -29,7 +29,18 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_below="@+id/imageView_profile_image"
         android:layout_centerHorizontal="true"
+<<<<<<< HEAD
         android:textColor="#FFFFFF" />
+=======
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Dear Diary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#000000" />
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
 
 <!--

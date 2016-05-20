@@ -1,6 +1,9 @@
 package com.example.mobile.diary;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Parcel;
@@ -10,7 +13,10 @@ public class saveMyData implements Parcelable {
 
     String titleMsg;
     String date;
+<<<<<<< HEAD
     String UserId;
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     Bitmap bitmap;
     Uri imgUri;
     String data;
@@ -30,10 +36,13 @@ public class saveMyData implements Parcelable {
     protected saveMyData(Parcel in) {
         titleMsg = in.readString();
         date = in.readString();
+<<<<<<< HEAD
         UserId = in.readString();
         bitmap = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
         imgUri = (Uri) in.readValue(Uri.class.getClassLoader());
         data = in.readString();
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     }
 
     @Override
@@ -45,10 +54,13 @@ public class saveMyData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(titleMsg);
         dest.writeString(date);
+<<<<<<< HEAD
         dest.writeString(UserId);
         dest.writeValue(bitmap);
         dest.writeValue(imgUri);
         dest.writeString(data);
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     }
 
     @SuppressWarnings("unused")
@@ -63,4 +75,8 @@ public class saveMyData implements Parcelable {
             return new saveMyData[size];
         }
     };
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7

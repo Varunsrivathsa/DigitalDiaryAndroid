@@ -42,10 +42,16 @@ public class Audio_pick extends AppCompatActivity {
         Intent intent = getIntent();
         saveMyData = intent.getParcelableExtra("dataStore");
 
+<<<<<<< HEAD
         String baddimaga= saveMyData.UserId;
 
 
         Log.i("AudioShat", baddimaga);
+=======
+        Bitmap baddimaga= saveMyData.bitmap;
+
+        Log.i("AudioShat", String.valueOf(baddimaga));
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
         lv = (ListView) findViewById(R.id.lvPlaylist);
 
@@ -72,6 +78,10 @@ public class Audio_pick extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+<<<<<<< HEAD
+=======
+                //.setClassName(getApplicationContext(),"com.example.mobile.diary.StartDiaryActivity")
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 startActivity(new Intent(getApplicationContext(), StartDiaryActivity.class).putExtra("pos", position).putExtra("songlist", mySongs).putExtra("takeBack",saveMyData));
             }
         });
@@ -116,9 +126,15 @@ public class Audio_pick extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+<<<<<<< HEAD
         //if (id == R.id.action_settings) {
           //  return true;
         //}
+=======
+        if (id == R.id.action_settings) {
+            return true;
+        }
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
         return super.onOptionsItemSelected(item);
     }

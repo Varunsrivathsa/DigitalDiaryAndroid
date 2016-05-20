@@ -48,7 +48,10 @@ public class MainActivity extends AppCompatActivity
     String selectedDate;
 
     String personName;
+<<<<<<< HEAD
     String message;
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     String photoUri;
     String userId;
     Uri profileImg;
@@ -71,7 +74,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+<<<<<<< HEAD
                   b      .setAction("Action", null).show();
+=======
+                        .setAction("Action", null).show();
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
             }
         });*/
 
@@ -87,10 +94,25 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
+<<<<<<< HEAD
         userId = intent.getStringExtra(LoginActivity.USER_ID);
         personName = intent.getStringExtra(LoginActivity.NAME);
         photoUri = intent.getStringExtra(LoginActivity.PHOTO_URL);
 
+=======
+
+        //if(intent.getStringExtra(LoginActivity.USER_ID) != null) {
+            userId = intent.getStringExtra(LoginActivity.USER_ID);
+            personName = intent.getStringExtra(LoginActivity.NAME);
+            photoUri = intent.getStringExtra(LoginActivity.PHOTO_URL);
+        //}
+//        else if(intent.getBooleanExtra("Done", true)){
+//            Intent intent1 = new Intent(MainActivity.this,MainActivity.class);
+//            startActivity(intent1);
+//        }
+
+        profileImg = Uri.parse(photoUri);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
         Log.d("USER NAME",personName);
 
@@ -156,6 +178,15 @@ public class MainActivity extends AppCompatActivity
             showDialog();
         } else if (id == R.id.nav_history) {
             onHistoryClick();
+<<<<<<< HEAD
+=======
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         } else if (id == R.id.nav_logout) {
 
 
@@ -193,7 +224,10 @@ public class MainActivity extends AppCompatActivity
         titledatedialog.setTitle(title.toString());
 
         title_message = (EditText) titledatedialog.findViewById(R.id.title);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         date = (CalendarView) titledatedialog.findViewById(R.id.date);
         okbutton = (Button) titledatedialog.findViewById(R.id.ok);
 
@@ -208,23 +242,33 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+<<<<<<< HEAD
         titledatedialog.show();
 
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         okbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent intent = new Intent(getBaseContext(), StartDiaryActivity.class);
                 if (title_message.getText().toString().length() == 0)
                     title_message.setError("Title is required!");
                 else {
+<<<<<<< HEAD
                     message = title_message.getText().toString();
+=======
+                    String message = title_message.getText().toString();
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                     intent.putExtra(TITLE, message);
                     intent.putExtra(DATE, selectedDate);
                     intent.putExtra(USER_ID,userId);
                     startActivity(intent);
                 }
 
+<<<<<<< HEAD
                 titledatedialog.dismiss();
 
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 //if( selectedDate.length() == 0 )
                 //selectedDate.setError( "Date is required!" );
 
@@ -234,14 +278,21 @@ public class MainActivity extends AppCompatActivity
 
 
         //AlertDialog dialog = builder.create();
+<<<<<<< HEAD
 
 
         return;
+=======
+        titledatedialog.show();
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     }
 
     public void onHistoryClick(){
         Intent iHistory = new Intent(MainActivity.this,HistoryActivity.class);
+<<<<<<< HEAD
         iHistory.putExtra(TITLE,message);
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         iHistory.putExtra(USER_ID,userId);
         startActivity(iHistory);
 

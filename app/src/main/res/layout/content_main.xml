@@ -18,6 +18,7 @@
         android:id="@+id/textView1"
         android:textSize="30dp"
         android:gravity="center"
+<<<<<<< HEAD
         android:textColor="#000000"
         android:textStyle="bold|italic"
         android:layout_marginTop="48dp"
@@ -32,6 +33,38 @@
         android:layout_marginTop="87dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+=======
+        android:textColor="#008080"
+        android:textStyle="bold|italic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="100dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enjoy! your journey"
+        android:textSize="30dp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textStyle="bold|italic"
+        android:textColor="#008080"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="To start with new diary navigate to side bar."
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView2"
+        android:id="@+id/textView3"
+        android:gravity="center"
+        android:textColor="#008080"
+        android:textStyle="bold|italic" />
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
 
 </RelativeLayout>

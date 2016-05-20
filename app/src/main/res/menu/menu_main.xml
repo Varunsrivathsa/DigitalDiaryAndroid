@@ -3,5 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.varun.songpick.MainActivity">
+<<<<<<< HEAD
 
+=======
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 </menu>

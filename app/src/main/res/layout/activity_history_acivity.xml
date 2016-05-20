@@ -5,51 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.mobile.diary.HistoryActivity">
+    tools:context="com.example.mobile.diary.HistoryAcivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-<<<<<<< HEAD
-        <RelativeLayout
-=======
         <android.support.v7.widget.Toolbar
->>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-<<<<<<< HEAD
-            android:orientation="horizontal"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="History"
-                android:textSize="30dp"
-                android:textIsSelectable="false" />
-
-
-
-
-        </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/history_content" />
-
-
-=======
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_history" />
+    <include layout="@layout/content_history_acivity" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -58,6 +30,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_dialog_email" />
->>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
 </android.support.design.widget.CoordinatorLayout>

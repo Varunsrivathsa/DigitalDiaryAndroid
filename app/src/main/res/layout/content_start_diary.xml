@@ -15,7 +15,11 @@
     <ScrollView
         android:id="@+id/diaryscrollview"
         android:layout_width="fill_parent"
+<<<<<<< HEAD
         android:layout_height="fill_parent"
+=======
+        android:layout_height="400dp"
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         android:layout_marginTop="70dp"
         android:layout_marginRight="16dp"
         android:layout_below="@id/fab">
@@ -45,7 +49,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/songName"
+<<<<<<< HEAD
                 android:text="               Song for the day"
+=======
+                android:text="Song for the day"
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:layout_below="@+id/capturePic"
@@ -55,11 +63,17 @@
 
     </ScrollView>
 
+<<<<<<< HEAD
 
 
     <TableLayout
         android:layout_width="240dp"
         android:layout_height="75dp"
+=======
+    <TableLayout
+        android:layout_width="230dp"
+        android:layout_height="150dp"
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         android:layout_gravity="right"
         android:id="@+id/attach_file"
         android:background="?attr/colorPrimary"
@@ -92,6 +106,7 @@
                 android:src="@drawable/ic_gallery"
                 android:clickable="true"
                 android:onClick="goToGallery" />
+<<<<<<< HEAD
 
             <ImageView
                 android:layout_column="3"
@@ -105,6 +120,13 @@
         </TableRow>
 
         <TableRow>
+=======
+        </TableRow>
+
+        <TableRow
+            android:padding="5dip"
+            android:layout_marginBottom="5dp">
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
             <TextView
                 android:layout_column="1"
                 android:layout_width="wrap_content"
@@ -128,8 +150,44 @@
                 android:textSize="15dp"
                 android:layout_marginLeft="20dp" />
 
+<<<<<<< HEAD
             <TextView
                 android:layout_column="3"
+=======
+        </TableRow>
+
+
+        <TableRow>
+            <ImageView
+                android:layout_column="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:id="@+id/audio"
+                android:src="@drawable/ic_audio"
+                android:clickable="true"
+                android:onClick="goToAudio" />
+
+
+
+            <ImageView
+                android:layout_column="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:id="@+id/location"
+                android:src="@drawable/ic_add_location"
+                android:clickable="true"
+                android:onClick="goToLocation" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_column="1"
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".20"
@@ -139,6 +197,20 @@
                 android:textSize="15dp"
                 android:layout_marginLeft="25dp" />
 
+<<<<<<< HEAD
+=======
+            <TextView
+                android:layout_column="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:text="Location"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginLeft="20dp" />
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         </TableRow>
 
 

@@ -38,6 +38,7 @@
                 android:textStyle="bold|italic" />
 
             <ImageView
+<<<<<<< HEAD
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +52,8 @@
 
 
             <ImageView
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/attachfile"
@@ -60,7 +63,20 @@
                 android:layout_marginRight="15dp"
                 android:clickable="true" />
 
+<<<<<<< HEAD
 
+=======
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:id="@+id/saveFile"
+                android:src="@drawable/ic_save"
+                android:layout_marginTop="1dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="55dp"
+                android:clickable="true"
+                android:onClick="sendJson"/>
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
         </RelativeLayout>
 
@@ -68,8 +84,20 @@
 
     <include layout="@layout/content_start_diary" />
 
+<<<<<<< HEAD
 
 
 
+=======
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_save"
+
+        />
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
 </android.support.design.widget.CoordinatorLayout>

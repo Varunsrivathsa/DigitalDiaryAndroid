@@ -22,5 +22,8 @@
     <string name="title_activity_history">HistoryActivity</string>
     <string name="title_activity_audio_pick">Audio_pick</string>
     <string name="title_activity_player">Player</string>
+<<<<<<< HEAD
     <string name="title_activity_display_data">display_data</string>
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 </resources>

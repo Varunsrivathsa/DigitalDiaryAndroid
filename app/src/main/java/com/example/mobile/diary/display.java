@@ -14,9 +14,12 @@ public class display {
         super();
         this.title = title;
     }
+<<<<<<< HEAD
 
     @Override
     public String toString() {
         return title;
     }
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 }

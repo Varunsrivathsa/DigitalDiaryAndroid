@@ -1,8 +1,14 @@
 package com.example.mobile.diary;
 
 import android.Manifest;
+<<<<<<< HEAD
 import android.content.Intent;
 import android.content.IntentSender;
+=======
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,6 +23,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+<<<<<<< HEAD
+=======
+import android.text.Editable;
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +38,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -37,6 +48,8 @@ import com.google.android.gms.drive.DriveApi;
 import com.google.android.gms.drive.DriveFolder;
 import com.google.android.gms.drive.MetadataChangeSet;
 
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -56,6 +69,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 public class StartDiaryActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 
@@ -86,10 +100,44 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
     private Bitmap mBitmapToSave;
     saveMyData smd = new saveMyData();
 
+=======
+public class StartDiaryActivity extends AppCompatActivity{
+
+    private static final String TAG = "Sending Data to Server";
+
+    MediaPlayer mp;
+    private static int RESULT_LOAD_IMG = 1;
+    ArrayList<File> mySongs;
+    String title_message,date_message;
+    String userId,songName,titleDiary;
+    int position;
+    Uri u;
+    Bitmap fromAudio;
+    File songPath;
+    TextView Tv,title,date;
+    EditText editText;
+    private static final int REQUEST_CAMERA = 112;
+    private static final int ACTIVITY_START_CAMERA_APP = 0;
+    private ImageView picCap;
+    private String imgFileLoc = "";
+    private static final int PICK_FROM_CAM = 1;
+    private static final int PICK_FROM_FILE = 2;
+    private Uri imageUri;
+
+    saveMyData smd = new saveMyData();
+
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_diary);
+<<<<<<< HEAD
+=======
+
+        Log.i("Oncreate", "InOncreate");
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -107,6 +155,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
 
             smd.titleMsg = title_message;
 
+<<<<<<< HEAD
 
             date_message = intent.getStringExtra(MainActivity.DATE);
 
@@ -116,16 +165,42 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
 
             userId = intent.getStringExtra(MainActivity.USER_ID);
             smd.UserId = userId;
+=======
+            Log.i("Ide title", title_message);
+
+
+            date_message = intent.getStringExtra(MainActivity.DATE);
+            Log.d("DATE DATE DATE", date_message);
+            date.setText(date_message);
+            date.setTextSize(15);
+
+            smd.date = date_message;
+
+            userId = intent.getStringExtra(MainActivity.USER_ID);
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         }
         else {
             if(intent.getExtras() != null) {
 
+<<<<<<< HEAD
+=======
+//                title.setText(newTit);
+//                title.setTextSize(25);
+//
+//                date.setText(newDate);
+//                date.setTextSize(25);
+
+                Log.i("Music", "Bantu");
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 Bundle b = intent.getExtras();
                 mySongs = (ArrayList) b.getParcelableArrayList("songlist");
                 position = b.getInt("pos", 0);
                 smd = b.getParcelable("takeBack");
 
                 if(smd.titleMsg != null)
+<<<<<<< HEAD
                     Log.i("titnew", smd.titleMsg);
                 else
                     Log.i("titNew", "dabba");
@@ -170,10 +245,64 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                     }
                 }
 
+=======
+                Log.i("titnew", smd.titleMsg);
+                else
+                Log.i("titNew", "dabba");
+
+                title.setText(smd.titleMsg);
+                title.setTextSize(25);
+
+                date.setText(smd.date);
+                date.setTextSize(15);
+
+                //Log.i("Illadru print aagu guru", smd.data);
+                editText.setText(smd.data);
+
+//                if(smd.imgUri != null) {
+//                    try {
+//                        Log.i("Shata", String.valueOf(smd.imgUri));
+//                        fromAudio = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                else{
+//                    Log.i("ShataBit", String.valueOf(smd.bitmap));
+//                    fromAudio = smd.bitmap;
+//                }
+
+                StringBuilder sb = new StringBuilder();
+                String s = String.valueOf(Environment.getExternalStorageDirectory());
+                sb.append(s);
+                sb.append(File.separator);
+                sb.append("DigitalDiary");
+                sb.append(File.separator);
+                sb.append(smd.titleMsg);
+                sb.append(".jpg");
+
+                Log.i("File location",sb.toString());
+
+                File imgFile = new  File(sb.toString());
+                if(imgFile.exists()){
+                    Log.i("I am entering","here");
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    //Drawable d = new BitmapDrawable(getResources(), myBitmap);
+                    picCap.setImageBitmap(myBitmap);
+
+                }
+
+                picCap.setImageBitmap(fromAudio);
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 u = Uri.parse(mySongs.get(position).toString());
                 songPath = new File(u.getPath());
                 songName = songPath.getAbsolutePath();
 
+<<<<<<< HEAD
+=======
+                Log.i("Ide nan song", songName);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
                 try {
                     addSongtoDirectory(songName);
@@ -183,6 +312,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                 mp = MediaPlayer.create(getApplicationContext(), u);
                 mp.start();
                 mp.pause();
+<<<<<<< HEAD
 
             }
         }
@@ -196,6 +326,11 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
             }
         });
 
+=======
+            }
+        }
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         ImageView attachfile = (ImageView) findViewById(R.id.attachfile);
         attachfile.setOnClickListener(new OnClickListener() {
             int button01pos = 0;
@@ -214,6 +349,10 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
             }
 
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         Tv = (TextView) findViewById(R.id.songName);
         Tv.setOnClickListener(new OnClickListener() {
             @Override
@@ -227,6 +366,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                 }
             }
         });
+<<<<<<< HEAD
     }
 
     @Override
@@ -287,6 +427,9 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
         } catch (IntentSender.SendIntentException e) {
             Log.e(TAG, "Exception while starting resolution activity", e);
         }
+=======
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     }
 
     public void goToCamera(View v){
@@ -308,23 +451,42 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
         startActivityForResult(intent, PICK_FROM_CAM);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     }
 
     public void goToGallery(View v){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(intent.ACTION_GET_CONTENT);
+<<<<<<< HEAD
         startActivityForResult(Intent.createChooser(intent, "Complete Action Using"), PICK_FROM_GALLERY);
         //saveFileToDrive();
         return;
+=======
+        startActivityForResult(Intent.createChooser(intent, "Complete Action Using"), PICK_FROM_FILE);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     }
 
     public void goToAudio(View v){
         Intent intent = new Intent(StartDiaryActivity.this,Audio_pick.class);
+<<<<<<< HEAD
         editText = (EditText) findViewById(R.id.diary);
         String text = editText.getText().toString();
         smd.data = text;
         intent.putExtra("dataStore", smd);
+=======
+        //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        //intent.setClassName(this,"com.example.mobile.diary.Audio_pick");
+        editText = (EditText) findViewById(R.id.diary);
+        String text = editText.getText().toString();
+        smd.data = text;
+        Log.i("Illadru print aagu guru", String.valueOf(smd.bitmap));
+        Log.i("Illadru print aagu guru", text);
+        intent.putExtra("dataStore",smd);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         startActivity(intent);
     }
 
@@ -332,6 +494,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
+<<<<<<< HEAD
 
     @Override
     public void onBackPressed() {
@@ -347,6 +510,28 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
         }
         super.onPause();
     }
+=======
+//    @Override
+//    public void onBackPressed() {
+//        new AlertDialog.Builder(this)
+//                .setTitle("Done")
+//                .setMessage("Did you save your entry before exiting?")
+//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//                        intent.putExtra("Done",true);
+//                        startActivity(intent);
+//                    }
+//                })
+//                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // do nothing
+//                    }
+//                })
+//                .setIcon(android.R.drawable.ic_dialog_alert)
+//                .show();
+//    }
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
 
     public void sendJson(){
@@ -380,7 +565,13 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
+<<<<<<< HEAD
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+=======
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         Bitmap bitmap = null;
         String path = "";
 
@@ -394,6 +585,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                             REQUEST_CAMERA);
                 }
 
+<<<<<<< HEAD
                 String RootDir = Environment.getExternalStorageDirectory() + File.separator + "DigitalDiary"+File.separator;
                 ///File RootFile = new File(RootDir);
 
@@ -445,11 +637,31 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                 picCap.setImageURI(imageUri);
                 try {
                     mBitmapToSave = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+=======
+                Toast.makeText(this, "Picture captured Successfully", Toast.LENGTH_LONG).show();
+
+                //picCap.setImageURI(imageUri);
+                Bitmap photoCap = BitmapFactory.decodeFile(imgFileLoc);
+                smd.bitmap = photoCap;
+                picCap.setImageBitmap(photoCap);
+            } else {
+                Bitmap bitmap1 = null;
+                imageUri = data.getData();
+                smd.imgUri = imageUri;
+                path = getPath(imageUri);
+                picCap.setImageURI(imageUri);
+                try {
+                    bitmap1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 try {
+<<<<<<< HEAD
                     createImageFileGallery(mBitmapToSave);
+=======
+                    createImageFileGallery(bitmap1);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -458,6 +670,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                     if (path != null)
                         Log.i("path of file..:", path);
                 }
+<<<<<<< HEAD
 
                 /*imageUri = data.getData();
                 try {
@@ -466,6 +679,8 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                     e.printStackTrace();
                 }
                 picCap.setImageURI(imageUri);*/
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
             }
         }
     }
@@ -523,6 +738,10 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
 
         RootFile.mkdir();
         File image = new File(RootFile, sb.toString());
+<<<<<<< HEAD
+=======
+        Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         imageData.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
 
@@ -533,6 +752,10 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
         return image;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -557,6 +780,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
         }
     }
 
+<<<<<<< HEAD
     private void saveFileToDrive() {
         // Start by creating a new contents, and setting a callback.
         Log.i(TAG, "Creating new contents.");
@@ -631,16 +855,28 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
         File RootFile = new File(RootDir);
 
         RootFile.mkdir();
+=======
+    public void addSongtoDirectory (String sourcePath) throws FileNotFoundException {
+
+            String RootDir = Environment.getExternalStorageDirectory() + File.separator + "DigitalDiary";
+            File RootFile = new File(RootDir);
+
+            RootFile.mkdir();
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
         File source = new File(sourcePath);
 
         String destinationPath = RootDir;
+<<<<<<< HEAD
 
         StringBuilder songStore = new StringBuilder();
         songStore.append(title_message);
         songStore.append(".mp3");
 
         File destination = new File(destinationPath,songStore.toString());
+=======
+        File destination = new File(destinationPath,"Audio.mp3");
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         try
         {
             FileUtils.copyFile(source, destination);
@@ -662,7 +898,10 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
             Log.d("Start Diary Activity", "Sending Data to Server");
 
             HttpClient httpClient = new DefaultHttpClient();
+<<<<<<< HEAD
             //HttpPost httpPost = new HttpPost("https://digitaldiary-4c8d6.appspot.com/saveData");
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
             try {
 
@@ -673,6 +912,7 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                 HttpResponse response = httpClient.execute(request);
 
 
+<<<<<<< HEAD
                // List nameValuePairs = new ArrayList(1);
                 //nameValuePairs.add(new BasicNameValuePair("diary details", params[0]));
                // httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -682,6 +922,10 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
                 int statusCode = response.getStatusLine().getStatusCode();
 
                 //final String responseBody = EntityUtils.toString(response.getEntity());
+=======
+                int statusCode = response.getStatusLine().getStatusCode();
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
                 Log.i(TAG, "Status Code:" + statusCode);
 
 
@@ -703,6 +947,10 @@ public class StartDiaryActivity extends AppCompatActivity implements GoogleApiCl
 
 
     }
+<<<<<<< HEAD
 
 
     }
+=======
+}
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7

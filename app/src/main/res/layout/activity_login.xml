@@ -7,6 +7,7 @@
     android:weightSum="4"
     >
 
+<<<<<<< HEAD
     <ImageView
         android:id="@+id/google_icon"
         android:layout_width="80dp"
@@ -26,6 +27,21 @@
         android:textIsSelectable="false"
         android:textStyle="bold"
         android:textColor="#000000" />
+=======
+
+
+        <ImageView
+            android:id="@+id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/googleg_color"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp" />
+
+
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
 
         <com.google.android.gms.common.SignInButton

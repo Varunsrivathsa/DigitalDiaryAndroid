@@ -6,7 +6,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +26,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
+<<<<<<< HEAD
             android:label="@string/app_name"
+=======
+            android:label="@string/title_activity_login"
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +47,13 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".OnTitleclick"
+            android:label="OnTitleclick"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -51,6 +65,7 @@
             android:name=".Player"
             android:label="@string/title_activity_player"
             android:theme="@style/AppTheme.NoActionBar" />
+<<<<<<< HEAD
         <activity
             android:name=".display_data"
             android:label="@string/title_activity_display_data"
@@ -58,3 +73,8 @@
     </application>
 
 </manifest>
+=======
+    </application>
+
+</manifest>
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7

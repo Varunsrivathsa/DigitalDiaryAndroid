@@ -1,5 +1,6 @@
 package com.example.mobile.diary;
 
+<<<<<<< HEAD
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,6 +15,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+=======
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -27,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,21 +46,38 @@ import java.util.List;
 import java.util.Map;
 
 
+=======
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 public class HistoryActivity extends AppCompatActivity implements onDownload {
     private ListView listView1;
     public HashMap<String, jsonObj> jMap = new HashMap<>();
     ArrayList<String> order = new ArrayList<>();
     JSONObject jData = null;
+<<<<<<< HEAD
     String userId,titleMsg;
+=======
+    String userId;
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         setContentView(R.layout.activity_history);
 
         Intent intent = getIntent();
         userId = intent.getStringExtra(MainActivity.USER_ID);
         titleMsg = intent.getStringExtra(MainActivity.TITLE);
+=======
+        setContentView(R.layout.history_content);
+
+        Intent intent = getIntent();
+        userId = intent.getStringExtra(MainActivity.USER_ID);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
         StringBuilder UrlGetJson = new StringBuilder();
         UrlGetJson.append("https://digitaldiary-76dfb.appspot.com/retrieveData/");
         UrlGetJson.append(userId);
@@ -67,6 +96,7 @@ public class HistoryActivity extends AppCompatActivity implements onDownload {
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
         Log.d("JSON RECEIVED",jData.toString());
         try {
 
@@ -196,10 +226,65 @@ public class HistoryActivity extends AppCompatActivity implements onDownload {
 
         RequestTask request = new RequestTask(this);
         //request.execute(url.toString());
+=======
+        int len = 0;
+        JSONArray arra = null;
+
+
+        try {
+            arra = (JSONArray) jData.get("diaries");
+            len = arra.length();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        display disp_data[] = new display[len];
+
+        for (int i = 0; i < len; i++) {
+            jsonObj jsonObj = new jsonObj();
+            String titleMsg = "";
+            try {
+                JSONObject json = (JSONObject) arra.get(i);
+                titleMsg = json.get("title").toString();
+
+                order.add(titleMsg);
+
+
+                jsonObj.titleOftheday = json.get("title").toString();
+                jsonObj.date = json.get("date").toString();
+                jsonObj.text = json.get("text").toString();
+
+                jMap.put(titleMsg, jsonObj);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            disp_data[i] = new display(titleMsg);
+        }
+
+        displayAdapter adapter = new displayAdapter(this, R.layout.history_text_list, disp_data);
+
+        listView1 = (ListView) findViewById(R.id.history);
+        View header = (View) getLayoutInflater().inflate(R.layout.history_header, null);
+        listView1.addHeaderView(header);
+        listView1.setAdapter(adapter);
+
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(HistoryActivity.this, OnTitleclick.class);
+                intent.putParcelableArrayListExtra("diaryMap",jMap.get(order.get(position-1)));
+                startActivity(intent);
+            }
+        });
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
 
     }
 
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7

@@ -12,6 +12,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.net.URLEncoder;
 
 public class RequestTask extends AsyncTask<String, String, String> {
@@ -19,6 +20,13 @@ public class RequestTask extends AsyncTask<String, String, String> {
     //public JSONObject jsono;
     //public JSONObject json;
 
+=======
+
+public class RequestTask extends AsyncTask<String, String, String> {
+
+    public JSONObject jsono;
+    public JSONObject json;
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
     public String data="";
 
     private onDownload asyncTaskListener;
@@ -36,7 +44,10 @@ public class RequestTask extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... urls) {
         try {
+<<<<<<< HEAD
             Log.d("url",urls[0]);
+=======
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
             HttpGet httppost = new HttpGet(urls[0]);
             HttpClient httpclient = new DefaultHttpClient();
@@ -49,7 +60,11 @@ public class RequestTask extends AsyncTask<String, String, String> {
                 HttpEntity entity = response.getEntity();
                 data = EntityUtils.toString(entity);
 
+<<<<<<< HEAD
                 Log.i("TAG","JSON Data:"+data);
+=======
+                Log.i("TAG","JSON Data           :"+data);
+>>>>>>> 618a3807de7e0d2f7176044dcc95e8e79cdf4ff7
 
                 return data;
             }
